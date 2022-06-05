@@ -71,10 +71,21 @@ function SignInBasic() {
       .then((res) => res.json())
       .then((data) => {
         // debugger;
+        if (data && data.status === "1") {
+          let message = data.message;
+          let profileType = message.split(",")[1];
 
-        if (data && data.otherInformation !== null) {
-          window.localStorage.setItem("registrationId", data.otherInformation.id);
-          navigate(`/pages/landing-pages/personalization`);
+          if (data.otherInformation !== null) {
+            window.localStorage.setItem("profileType", profileType);
+            window.localStorage.setItem("entityId", data.otherInformation.id);
+            window.localStorage.setItem("registrationId", id);
+
+            if (profileType == 1) {
+              navigate(`/pages/landing-pages/personalization`);
+            } else if (profileType == 2) {
+              navigate(`/pages/landing-pages/ngos`);
+            }
+          }
         }
 
         // if(data.error) {

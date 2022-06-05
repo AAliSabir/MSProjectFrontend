@@ -171,11 +171,9 @@ function EditProfile() {
   useEffect(() => {
     console.log("on load");
 
-    let regId = window.localStorage.getItem('registrationId');
+    let entityId = window.localStorage.getItem("entityId");
 
-
-
-    fetch("/api/Volunteer/GetVolunteerById?volunteerId=" + regId, {
+    fetch("/api/Volunteer/GetVolunteerById?volunteerId=" + entityId, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -253,7 +251,7 @@ function EditProfile() {
     const selectedInterests = interests.map((a) => a.id).join(",");
     const selectedAvailabilities = availabilities.map((a) => a.id).join(",");
 
-    let regId = window.localStorage.getItem('registrationId');
+    let entityId = window.localStorage.getItem("entityId");
 
     fetch("/api/Volunteer/UpdateVolunteer", {
       method: "PUT",
@@ -262,7 +260,7 @@ function EditProfile() {
         accept: "application/json",
       },
       body: JSON.stringify({
-        id: regId,
+        id: entityId,
         name,
         dateOfBirth,
         cnic,

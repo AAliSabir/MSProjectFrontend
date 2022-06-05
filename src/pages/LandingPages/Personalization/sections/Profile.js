@@ -84,10 +84,9 @@ function Profile() {
   useEffect(() => {
     console.log("on load");
 
-    let regId = window.localStorage.getItem('registrationId');
+    let entityId = window.localStorage.getItem("entityId");
 
-
-    fetch("/api/Volunteer/GetVolunteerById?volunteerId=" + regId, {
+    fetch("/api/Volunteer/GetVolunteerById?volunteerId=" + entityId, {
       method: "GET",
       headers: {
         "content-type": "application/json",
