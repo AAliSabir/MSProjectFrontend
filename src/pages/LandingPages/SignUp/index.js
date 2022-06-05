@@ -34,6 +34,7 @@ import MKBox from "components/MKBox";
 import MKTypography from "components/MKTypography";
 import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
+import { RadioGroup, Radio, FormControl, FormControlLabel } from "@mui/material";
 
 // Material Kit 2 React example components
 import DefaultNavbar from "examples/Navbars/DefaultNavbar";
@@ -57,6 +58,9 @@ function SignUpBasic() {
   const [password, setPasswordChange] = useState("");
   const handlePasswordChange = (e) => setPasswordChange(e.target.value);
 
+  const [registrationType, setRegistrationType] = useState(1);
+  const handleRegistrationTypeChange = (e) => setRegistrationType(e.target.value);
+
   function signUpClick() {
     fetch("/api/Registration/SignUp", {
       method: "POST",
@@ -68,6 +72,7 @@ function SignUpBasic() {
         name,
         registrationId,
         password,
+        registrationType,
       }),
     })
       .then((response) => response.json())
@@ -183,6 +188,30 @@ function SignUpBasic() {
                       onChange={handlePasswordChange}
                       fullWidth
                     />
+                  </MKBox>
+                  <MKBox mb={2}>
+                    <MKTypography variant="body2" fontWeight="bold" mb={1}>
+                      Profile Type
+                    </MKTypography>
+                    <FormControl>
+                      <RadioGroup
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="controlled-radio-buttons-group"
+                        value={registrationType}
+                        onChange={handleRegistrationTypeChange}
+                      >
+                        <FormControlLabel
+                          value={1}
+                          control={<Radio />}
+                          label={<MKTypography variant="button">Volunteer</MKTypography>}
+                        />
+                        <FormControlLabel
+                          value={2}
+                          control={<Radio />}
+                          label={<MKTypography variant="button">NGO</MKTypography>}
+                        />
+                      </RadioGroup>
+                    </FormControl>
                   </MKBox>
                   <MKBox mt={4} mb={1}>
                     <MKButton variant="gradient" color="info" onClick={signUpClick} fullWidth>

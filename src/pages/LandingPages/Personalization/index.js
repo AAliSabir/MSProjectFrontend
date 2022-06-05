@@ -24,10 +24,8 @@ import Card from "@mui/material/Card";
 
 import MKBox from "components/MKBox";
 
-
 // Material Kit 2 React examples
 import CustomNavbar from "examples/Navbars/CustomNavbar/index";
-
 
 // Personalization page sections
 import EditProfile from "pages/LandingPages/Personalization/sections/EditProfile";
@@ -36,10 +34,7 @@ import Footer from "pages/LandingPages/Personalization/sections/Footer";
 
 // Routes
 import routes from "routes";
-import customNavbarRoutes from "customNavbarRoutes"
-
-
-
+import customNavbarRoutes from "customNavbarRoutes";
 
 // Images
 import bgImage from "assets/images/city-profile.jpg";
@@ -62,11 +57,7 @@ function Personalization() {
         light
       /> */}
 
-      <CustomNavbar
-        routes={customNavbarRoutes}
-        transparent
-        light
-      />
+      <CustomNavbar routes={customNavbarRoutes} transparent light />
 
       <MKBox bgColor="white">
         <MKBox

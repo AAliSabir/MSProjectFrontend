@@ -282,6 +282,10 @@ function EditProfile() {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
+        if (response.status === "1") {
+          alert("Profile update successful");
+          //navigate to Profile component and scroll to top
+        }
       })
       .catch((err) => {
         console.log(err);
