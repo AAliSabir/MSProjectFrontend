@@ -22,12 +22,12 @@ import { Link, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
-import MuiLink from "@mui/material/Link";
+//import MuiLink from "@mui/material/Link";
 
 // @mui icons
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import GoogleIcon from "@mui/icons-material/Google";
+// import FacebookIcon from "@mui/icons-material/Facebook";
+// import GitHubIcon from "@mui/icons-material/GitHub";
+// import GoogleIcon from "@mui/icons-material/Google";
 
 // Material Kit 2 React components
 import MKBox from "components/MKBox";
@@ -36,38 +36,71 @@ import MKInput from "components/MKInput";
 import MKButton from "components/MKButton";
 
 // Material Kit 2 React example components
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
+//import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import SimpleFooter from "examples/Footers/SimpleFooter";
 
 // Material Kit 2 React page layout routes
-import routes from "routes";
+//import routes from "routes";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 function SignInBasic() {
   const [rememberMe, setRememberMe] = useState(false);
+  const [id, setId] = useState("");
+  const [pwd, setPwd] = useState("");
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   const navigate = useNavigate();
 
   function signInClick() {
-    navigate(`/pages/landing-pages/personalization`);
+    //window.localStorage.setItem('registrationId', 15)
+
+    //navigate(`/pages/landing-pages/personalization`);
+
+    fetch("/api/Registration/SignIn", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        RegistrationId: id,
+        Password: pwd,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // debugger;
+
+        if (data && data.otherInformation !== null) {
+          window.localStorage.setItem("registrationId", data.otherInformation.id);
+          navigate(`/pages/landing-pages/personalization`);
+        }
+
+        // if(data.error) {
+        //     M.toast({html: data.error, classes: '#c62828 red darken-3'})
+        // }
+        // else {
+        //     sessionStorage.setItem('jwt', data.token)
+        //     sessionStorage.setItem('user', JSON.stringify(data.user))
+
+        //     dispatch({type: "USER", payload: data.user})
+        //     M.toast({html: 'Signed-in Successfully', classes: '#43a047 green darken-1'})
+        //     history.push('/')
+
+        // window.localStorage.setItem('registrationId', 15)
+        //navigate(`/pages/landing-pages/personalization`);
+        // }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    //navigate(`/pages/landing-pages/personalization`);
   }
 
   return (
     <>
-      <DefaultNavbar
-        routes={routes}
-        action={{
-          type: "external",
-          route: "https://www.creative-tim.com/product/material-kit-react",
-          label: "free download",
-          color: "info",
-        }}
-        transparent
-        light
-      />
       <MKBox
         position="absolute"
         top={0}
@@ -104,31 +137,28 @@ function SignInBasic() {
                 <MKTypography variant="h4" fontWeight="medium" color="white" mt={1}>
                   Sign in
                 </MKTypography>
-                <Grid container spacing={3} justifyContent="center" sx={{ mt: 1, mb: 2 }}>
-                  <Grid item xs={2}>
-                    <MKTypography component={MuiLink} href="#" variant="body1" color="white">
-                      <FacebookIcon color="inherit" />
-                    </MKTypography>
-                  </Grid>
-                  <Grid item xs={2}>
-                    <MKTypography component={MuiLink} href="#" variant="body1" color="white">
-                      <GitHubIcon color="inherit" />
-                    </MKTypography>
-                  </Grid>
-                  <Grid item xs={2}>
-                    <MKTypography component={MuiLink} href="#" variant="body1" color="white">
-                      <GoogleIcon color="inherit" />
-                    </MKTypography>
-                  </Grid>
-                </Grid>
               </MKBox>
               <MKBox pt={4} pb={3} px={3}>
                 <MKBox component="form" role="form">
                   <MKBox mb={2}>
-                    <MKInput type="email" label="Email" fullWidth />
+                    <MKInput
+                      type="text"
+                      label="Registration Id"
+                      onChange={(e) => {
+                        setId(e.target.value);
+                      }}
+                      fullWidth
+                    />
                   </MKBox>
                   <MKBox mb={2}>
-                    <MKInput type="password" label="Password" fullWidth />
+                    <MKInput
+                      type="password"
+                      label="Password"
+                      onChange={(e) => {
+                        setPwd(e.target.value);
+                      }}
+                      fullWidth
+                    />
                   </MKBox>
                   <MKBox display="flex" alignItems="center" ml={-1}>
                     <Switch checked={rememberMe} onChange={handleSetRememberMe} />

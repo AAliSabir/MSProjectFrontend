@@ -295,7 +295,7 @@ function EditProfile() {
       <Container>
         <Grid container item justifyContent="center" xs={10} lg={7} mx="auto" textAlign="center">
           <MKTypography variant="h3" mb={1}>
-            Personal Information
+            NGO Information
           </MKTypography>
         </Grid>
         <Grid container item xs={12} lg={7} sx={{ mx: "auto" }}>

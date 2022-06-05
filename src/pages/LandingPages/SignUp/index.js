@@ -51,14 +51,14 @@ function SignUpBasic() {
   const [name, setNameChange] = useState("");
   const handleNameChange = (e) => setNameChange(e.target.value);
 
-  const [email, setEmailChange] = useState("");
-  const handleEmailChange = (e) => setEmailChange(e.target.value);
+  const [registrationId, setRegistrationIdChange] = useState("");
+  const handleRegistrationIdChange = (e) => setRegistrationIdChange(e.target.value);
 
   const [password, setPasswordChange] = useState("");
   const handlePasswordChange = (e) => setPasswordChange(e.target.value);
 
   function signUpClick() {
-    fetch("/api/SignUp/AddVolunteer", {
+    fetch("/api/Registration/SignUp", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -66,7 +66,7 @@ function SignUpBasic() {
       },
       body: JSON.stringify({
         name,
-        email,
+        registrationId,
         password,
       }),
     })
@@ -83,6 +83,7 @@ function SignUpBasic() {
         } else {
           /* eslint-disable no-console */
           console.log("Error");
+          console.log(response.message);
           /* eslint-enable no-console */
         }
       })
@@ -91,9 +92,6 @@ function SignUpBasic() {
         console.log(err);
         /* eslint-enable no-console */
       });
-    /* eslint-disable no-console */
-    console.log("Clicked");
-    /* eslint-enable no-console */
   }
   return (
     <>
@@ -170,10 +168,10 @@ function SignUpBasic() {
                   </MKBox>
                   <MKBox mb={2}>
                     <MKInput
-                      type="email"
-                      label="Email"
-                      value={email}
-                      onChange={handleEmailChange}
+                      type="text"
+                      label="Id"
+                      value={registrationId}
+                      onChange={handleRegistrationIdChange}
                       fullWidth
                     />
                   </MKBox>

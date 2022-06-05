@@ -13,13 +13,7 @@
   },
   "plugins": ["react", "prettier"],
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto",
-        "no-console": "off"
-      }
-    ],
+    "prettier/prettier": "warn",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-props-no-spreading": [

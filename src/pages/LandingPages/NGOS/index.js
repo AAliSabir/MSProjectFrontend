@@ -22,32 +22,54 @@ import Tab from "@mui/material/Tab";
 // @mui material components
 import Card from "@mui/material/Card";
 
+// Material Kit 2 React components
 import MKBox from "components/MKBox";
 
+// Material Kit 2 React examples
+import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 
 // Material Kit 2 React examples
 import CustomNavbar from "examples/Navbars/CustomNavbar/index";
 
 
 // Personalization page sections
-import EditProfile from "pages/LandingPages/Personalization/sections/EditProfile";
-import Profile from "pages/LandingPages/Personalization/sections/Profile";
-import Footer from "pages/LandingPages/Personalization/sections/Footer";
+import EditProfile from "pages/LandingPages/NGOS/sections/EditProfile";
+import Profile from "pages/LandingPages/NGOS/sections/Profile";
+import Footer from "pages/LandingPages/NGOS/sections/Footer";
 
 // Routes
 import routes from "routes";
 import customNavbarRoutes from "customNavbarRoutes"
-
-
+import SideBarMenu from "../../../layouts/side-navbar/index";
 
 
 // Images
 import bgImage from "assets/images/city-profile.jpg";
 
-function Personalization() {
+function NGOS() {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabType = (event, newValue) => setActiveTab(newValue);
+  const [currentTab, setCurrentTab] = useState('Home');
+
+
+  const handleTabClicked = (e) => {
+    try {
+      var active = document.querySelectorAll(".pro-menu-item.active");
+      if(active && active.length > 0) {
+        
+        for (var item=0;item<active.length;item++) {
+          if(active[item] !== null && active[item].classList !== null && active[item].classList !== undefined) {
+            active[item].classList.remove("active");
+          }
+        }
+      }
+      e.currentTarget.classList.add('active')
+      setCurrentTab(e.currentTarget.innerText)
+    }
+    catch(e) {}
+  }
+
   return (
     <>
       {/* <DefaultNavbar
@@ -98,51 +120,24 @@ function Personalization() {
           <Container>
             <Grid container item justifyContent="center" xs={12} lg={4} mx="auto">
               <AppBar position="static">
-                <Tabs value={activeTab} onChange={handleTabType}>
-                  <Tab label="My Profile" />
-                  <Tab label="Edit Profile" />
-                </Tabs>
+                
+                
+
               </AppBar>
             </Grid>
           </Container>
         </Card>
-        {!activeTab && (
-          <Card
-            sx={{
-              p: 2,
-              mx: { xs: 2, lg: 3 },
-              mt: 10,
-              mb: 4,
-              backgroundColor: ({ palette: { white }, functions: { rgba } }) =>
-                rgba(white.main, 0.8),
-              backdropFilter: "saturate(200%) blur(30px)",
-              boxShadow: ({ boxShadows: { xxl } }) => xxl,
-            }}
-          >
-            <Profile />
-          </Card>
-        )}
-        {activeTab && (
-          <Card
-            display={activeTab === 0 ? "block" : "none"}
-            sx={{
-              p: 2,
-              mx: { xs: 2, lg: 3 },
-              mt: 10,
-              mb: 4,
-              backgroundColor: ({ palette: { white }, functions: { rgba } }) =>
-                rgba(white.main, 0.8),
-              backdropFilter: "saturate(200%) blur(30px)",
-              boxShadow: ({ boxShadows: { xxl } }) => xxl,
-            }}
-          >
-            <EditProfile />
-          </Card>
-        )}
-        <Footer />
+
+        
       </MKBox>
+
+      <MKBox bgColor="white" minHeight="600px">
+        <SideBarMenu handleTabClicked={(e) => handleTabClicked(e)} />
+      </MKBox>
+
+      <Footer />
     </>
   );
 }
 
-export default Personalization;
+export default NGOS;
