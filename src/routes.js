@@ -48,6 +48,7 @@ import ContactUs from "layouts/pages/landing-pages/contact-us";
 import Author from "layouts/pages/landing-pages/author";
 import Personalization from "layouts/pages/landing-pages/personalization";
 import NGOS from "layouts/pages/landing-pages/ngos";
+import NGO from "layouts/pages/landing-pages/ngo";
 
 import SignIn from "layouts/pages/authentication/sign-in";
 import SignUp from "layouts/pages/sign-up";
@@ -106,6 +107,11 @@ const routes = [
             name: "ngos",
             route: "/pages/landing-pages/ngos",
             component: <NGOS />,
+          },
+          {
+            name: "ngo",
+            route: "/pages/landing-pages/ngo",
+            component: <NGO />,
           },
         ],
       },

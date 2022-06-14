@@ -26,7 +26,7 @@ import MKTypography from "components/MKTypography";
 // Images
 import profilePicture from "assets/images/bruce-mars.jpg";
 
-function Profile() {
+function Profile(props) {
   const [name, setName] = useState("");
   const [about, setAbout] = useState("");
   const [cnic, setCnic] = useState("");
@@ -85,6 +85,7 @@ function Profile() {
     console.log("on load");
 
     let entityId = window.localStorage.getItem("entityId");
+
 
     fetch("/api/Volunteer/GetVolunteerById?volunteerId=" + entityId, {
       method: "GET",
@@ -174,6 +175,17 @@ function Profile() {
         console.log(err);
       });
   }, []);
+
+
+  const handleTabChange = async(tabValue) => {
+
+    debugger;
+    
+    await props.handleTabChangeOrNot(tabValue);
+
+
+  }
+
 
   return (
     <MKBox component="section" py={{ xs: 6, sm: 12 }}>

@@ -32,22 +32,22 @@ function SimpleFooter({ company, links, light }) {
   const { href, name } = company;
   const { size } = typography;
 
-  const renderLinks = () =>
-    links.map((link, key) => (
-      <MKBox
-        key={link.name}
-        component="li"
-        pl={key === 0 ? 0 : 2}
-        pr={key === links.length - 1 ? 0 : 2}
-        lineHeight={1}
-      >
-        <Link href={link.href} target="_blank">
-          <MKTypography variant="button" fontWeight="regular" color={light ? "white" : "text"}>
-            {link.name}
-          </MKTypography>
-        </Link>
-      </MKBox>
-    ));
+  // const renderLinks = () =>
+  //   links.map((link, key) => (
+  //     <MKBox
+  //       key={link.name}
+  //       component="li"
+  //       pl={key === 0 ? 0 : 2}
+  //       pr={key === links.length - 1 ? 0 : 2}
+  //       lineHeight={1}
+  //     >
+  //       <Link href={link.href} target="_blank">
+  //         <MKTypography variant="button" fontWeight="regular" color={light ? "white" : "text"}>
+  //           {link.name}
+  //         </MKTypography>
+  //       </Link>
+  //     </MKBox>
+  //   ));
 
   return (
     <Container>
@@ -66,16 +66,11 @@ function SimpleFooter({ company, links, light }) {
           color={light ? "white" : "text"}
           fontSize={size.sm}
         >
-          &copy; {new Date().getFullYear()}, made with
-          <MKBox fontSize={size.md} color={light ? "white" : "text"} mb={-0.5} mx={0.25}>
-            <Icon color="inherit" fontSize="inherit">
-              favorite
-            </Icon>
-          </MKBox>
+          &copy; {new Date().getFullYear()}, made on ReactJS
           by
           <Link href={href} target="_blank">
             <MKTypography variant="button" fontWeight="medium" color={light ? "white" : "dark"}>
-              &nbsp;{name}&nbsp;
+              &nbsp;{"Ahmed Ali Sabir"}&nbsp;
             </MKTypography>
           </Link>
           for a better web.
@@ -97,7 +92,7 @@ function SimpleFooter({ company, links, light }) {
             },
           })}
         >
-          {renderLinks()}
+          {/* {renderLinks()} */}
         </MKBox>
       </MKBox>
     </Container>

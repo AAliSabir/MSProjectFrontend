@@ -97,7 +97,7 @@ function getAvailabilityStyles(name, availabilities, theme) {
   };
 }
 
-function EditProfile() {
+function EditProfile(props) {
   const [name, setName] = useState("");
   const handleNameChange = (e) => setName(e.target.value);
 
@@ -246,6 +246,12 @@ function EditProfile() {
       });
   }, []);
 
+  const handleTabChange = async (tabValue) => {
+    debugger;
+
+    await props.handleTabChangeOrNot(tabValue);
+  };
+
   const submitForm = () => {
     const selectedSkills = skills.map((a) => a.id).join(",");
     const selectedInterests = interests.map((a) => a.id).join(",");
@@ -282,10 +288,8 @@ function EditProfile() {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        if (response.status === "1") {
-          alert("Profile update successful");
-          //navigate to Profile component and scroll to top
-        }
+
+        handleTabChange(0);
       })
       .catch((err) => {
         console.log(err);
