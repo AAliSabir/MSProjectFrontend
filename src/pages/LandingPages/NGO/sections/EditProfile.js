@@ -95,7 +95,7 @@ function EditProfile(props) {
     console.log("on load");
 
     let entityId = window.localStorage.getItem("entityId");
-    entityId = 1;
+
     fetch("/api/NGO/GetNGOById?ngoId=" + entityId, {
       method: "GET",
       headers: {
@@ -136,7 +136,7 @@ function EditProfile(props) {
           setAbout(ngoObj.about);
           setRegistrationDate(ngoObj.registrationDate);
           setEmail(ngoObj.email);
-          setContactNumber(ngoObj.contactNo);
+          setContactNumber(ngoObj.contactNumber);
           setAddress(ngoObj.address);
           setProvince(ngoObj.provinceId);
           setCity(ngoObj.cityId);
@@ -157,7 +157,7 @@ function EditProfile(props) {
     const selectedWorks = areasOfWork.map((a) => a.id).join(",");
 
     let entityId = window.localStorage.getItem("entityId");
-    entityId = 1;
+
     fetch("/api/NGO/UpdateNGO", {
       method: "PUT",
       headers: {
@@ -208,18 +208,6 @@ function EditProfile(props) {
                     label="Full Name"
                     value={name}
                     onChange={handleNameChange}
-                    InputLabelProps={{ shrink: true }}
-                    fullWidth
-                  />
-                </Grid>
-              </Grid>
-              <Grid container justifyContent="center" spacing={3} mt={2}>
-                <Grid item xs={8}>
-                  <MKInput
-                    variant="standard"
-                    label="About"
-                    value={about}
-                    onChange={handleAboutChange}
                     InputLabelProps={{ shrink: true }}
                     fullWidth
                   />

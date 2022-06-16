@@ -83,7 +83,7 @@ function SignInBasic() {
             if (profileType == 1) {
               navigate(`/pages/landing-pages/personalization`);
             } else if (profileType == 2) {
-              navigate(`/pages/landing-pages/ngos`);
+              navigate(`/pages/landing-pages/ngo`);
             }
           }
         }

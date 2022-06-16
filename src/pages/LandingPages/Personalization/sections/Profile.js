@@ -86,7 +86,6 @@ function Profile(props) {
 
     let entityId = window.localStorage.getItem("entityId");
 
-
     fetch("/api/Volunteer/GetVolunteerById?volunteerId=" + entityId, {
       method: "GET",
       headers: {
@@ -100,6 +99,16 @@ function Profile(props) {
 
         if (response.status === "1") {
           const volunteerObj = response.otherInformation;
+
+          if (
+            volunteerObj.name === null ||
+            volunteerObj.about === null ||
+            volunteerObj.cnic === null ||
+            volunteerObj.contactNo === null ||
+            volunteerObj.address === null
+          ) {
+            handleTabChange(1);
+          }
 
           if (volunteerObj.name === null) volunteerObj.name = "";
           setName(volunteerObj.name);
@@ -121,6 +130,7 @@ function Profile(props) {
               setGender("Female");
             }
           }
+
           if (volunteerObj.contactNo === null) volunteerObj.contactNo = "";
           setContactNo(volunteerObj.contactNo);
 
@@ -176,16 +186,11 @@ function Profile(props) {
       });
   }, []);
 
-
-  const handleTabChange = async(tabValue) => {
-
+  const handleTabChange = async (tabValue) => {
     debugger;
-    
+
     await props.handleTabChangeOrNot(tabValue);
-
-
-  }
-
+  };
 
   return (
     <MKBox component="section" py={{ xs: 6, sm: 12 }}>

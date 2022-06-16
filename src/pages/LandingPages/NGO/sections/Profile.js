@@ -57,7 +57,6 @@ function Profile(props) {
     console.log("on load");
 
     let entityId = window.localStorage.getItem("entityId");
-    entityId = 1;
 
     fetch("/api/NGO/GetNGOById?ngoId=" + entityId, {
       method: "GET",
@@ -72,6 +71,18 @@ function Profile(props) {
 
         if (response.status === "1") {
           const ngoObj = response.otherInformation;
+
+          if (
+            ngoObj.name === null ||
+            ngoObj.registrationNumber === null ||
+            ngoObj.about === null ||
+            ngoObj.registrationDate === null ||
+            ngoObj.contactNumber === null ||
+            ngoObj.email === null ||
+            ngoObj.address === null
+          ) {
+            handleTabChange(1);
+          }
 
           if (ngoObj.name === null) ngoObj.name = "";
           setName(ngoObj.name);
@@ -134,7 +145,7 @@ function Profile(props) {
           <Grid container justifyContent="center">
             <Grid item xs={12} md={7} mx={{ xs: "auto", sm: 6, md: 1 }}>
               <MKBox display="flex" justifyContent="space-between" alignItems="center" mb={1}>
-                <MKTypography variant="h3">Green Pakistan{name}</MKTypography>
+                <MKTypography variant="h3">{name}</MKTypography>
               </MKBox>
 
               <Grid container spacing={3} mb={2}>
