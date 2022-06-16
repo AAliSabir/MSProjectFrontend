@@ -22,6 +22,7 @@ export default function NGOProject() {
   const [showForm, setShow] = useState(false);
   const [operationType, setOperationType] = useState(1);
   var allProjects = [];
+  var projectsDropdownData = [];
   const toggleForm = (value, id) => {
     if (value) {
       if (id > 0) {
@@ -101,6 +102,7 @@ export default function NGOProject() {
       return newObj;
     };
   }
+
   function loadProfile() {
     let entityId = window.localStorage.getItem("entityId");
 
@@ -113,14 +115,37 @@ export default function NGOProject() {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
-
         if (response.status === "1") {
           allProjects = response.otherInformation;
-          setRowData(
-            allProjects
-            //allProjects.map(selectProps("id", "name", "cnic", "gender", "contactNo", "email"))
-          );
+
+          allProjects.forEach((x) => {
+            let thisProject = projectsDropdownData.find((y) => y.Id == x.parentProjectId);
+            x.parentproject = thisProject !== undefined ? thisProject.Name : "-";
+          });
+
+          let thisMapping = allProjects.map(selectProps("id", "name", "about", "parentproject"));
+          setRowData(thisMapping);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function loadDropdownData() {
+    let entityId = window.localStorage.getItem("entityId");
+
+    fetch("/api/Project/GetAllProjectsForDropdown?ngoId=" + entityId, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === "1") {
+          projectsDropdownData = response.otherInformation;
         }
       })
       .catch((err) => {
@@ -130,6 +155,7 @@ export default function NGOProject() {
 
   useEffect(() => {
     console.log("on load");
+    loadDropdownData();
     loadProfile();
   }, []);
 
@@ -243,6 +269,7 @@ export default function NGOProject() {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
+        loadDropdownData();
         loadProfile();
         toggleForm(false);
       })
@@ -273,7 +300,7 @@ export default function NGOProject() {
                   <Grid item xs={6}>
                     <div style={{ height: 400, width: "100%" }}>
                       <DataGrid
-                        rows={rows}
+                        rows={rowss}
                         columns={columns}
                         pageSize={5}
                         rowsPerPageOptions={[5]}
